@@ -1,0 +1,98 @@
+/*
+ ============================================================================
+ Name        : 2.c
+ Author      : 
+ Version     :
+ Copyright   : Your copyright notice
+ Description : Hello World in C, Ansi-style
+ ============================================================================
+ */
+/* Se ingresan 10 numeros y 10 letras
+ se necesita saber:
+ a) promedio de numeros
+ b) cantidad de vocales(cuantas a, cuantas b...)
+ c) de la letra a, el valor mas grande
+ d) el factor de todos los numeros ingresados */
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#define T 5
+
+int main(void) {
+	setbuf(stdout, NULL);
+
+	int numero;
+	char letra;
+	int acumuladorNumeros;
+	float promedio;
+	int contadorA;
+	int contadorE;
+	int contadorI;
+	int contadorO;
+	int contadorU;
+	int maximoNumero;
+	int banderaMaximoA;
+	int factor;
+
+	int i;
+	acumuladorNumeros = 0;
+	contadorA = 0;
+	contadorE = 0;
+	contadorI = 0;
+	contadorO = 0;
+	contadorU = 0;
+	banderaMaximoA = 0;
+	factor = 1; //para una multiplicacion se inicializa en 1.
+
+	for (i = 0; i < T; i++) {
+		printf("Ingrese un numero: ");
+		scanf("%d", &numero); //la mascara sirve de que manera va a codificar ese dato la memoria
+
+		printf("Ingrese una letra: ");
+		fflush(stdin); //purga el buffer y este codigo es para window
+		scanf("%c", &letra);
+
+		switch (letra) {
+		case 'a':
+			contadorA++;
+			if (numero > maximoNumero || banderaMaximoA == 0) {
+				maximoNumero = numero;
+				banderaMaximoA = 1;
+			}
+			break;
+		case 'e':
+			contadorE++;
+			break;
+		case 'i':
+			contadorI++;
+			break;
+		case 'o':
+			contadorO++;
+			break;
+		case 'u':
+			contadorU++;
+			break;
+		}
+
+		acumuladorNumeros = acumuladorNumeros + numero;
+		factor = factor * numero;
+
+	}
+
+	promedio = (float) acumuladorNumeros / T; //Necesitamos castear siempre que querramos dividir dos enteros
+
+	printf("El promedio es: %.2f\n", promedio);
+	printf("Se ingresaron: %d letras a\n", contadorA);
+	printf("Se ingresaron: %d letras e\n", contadorE);
+	printf("Se ingresaron: %d letras i\n", contadorI);
+	printf("Se ingresaron: %d letras o\n", contadorO);
+	printf("Se ingresaron: %d letras u\n", contadorU);
+	if (contadorA > 0) {
+		printf("El maximo de letras a es: %d\n", maximoNumero);
+	} else {
+		printf("No se ingresaron letras a para calcular el maximo");
+	}
+	printf("\nEl factor es: %d", factor);
+
+	return EXIT_SUCCESS;
+}
